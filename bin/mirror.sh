@@ -25,6 +25,6 @@ if [ x"$#" != x"0" ]; then
 	fi
 fi
 
-(cd ${topdir} && ./bin/remote_sync.sh ${conf} >> ${logdir}/log.pavuk.${date} 2>&1)
-(cd ${topdir} && ./bin/local_sync.sh > ${logdir}/log.local.${date} 2>&1)
-(cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.local.${date} 2>&1)
+(cd ${topdir} && ./bin/remote_sync.sh ${conf} > ${logdir}/log.remote_sync.${date} 2>&1)
+(cd ${topdir} && ./bin/local_sync.sh > ${logdir}/log.local_sync.${date} 2>&1)
+(cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.create_index.${date} 2>&1)

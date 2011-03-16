@@ -25,6 +25,6 @@ if [ x"$#" != x"0" ]; then
 fi
 
 ${topdir}/bin/parse_conf.pl ${conf} | while read line; do
-	echo line=$line
+	echo line=$line >> ${logdir}/log.pavuk.${date}
 	(cd ${topdir} && ./bin/pavuk.sh ${line} >> ${logdir}/log.pavuk.${date} 2>&1)
 done
