@@ -43,3 +43,5 @@ cat <<END >> ${docroot}/index.html
 </body>
 </html>
 END
+chgrp users ${docroot}/index.html
+chmod g+w ${docroot}/index.html
