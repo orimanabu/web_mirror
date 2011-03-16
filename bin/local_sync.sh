@@ -4,9 +4,10 @@ topdir=`pwd`
 #srcdir=${topdir}/tepco_mirror
 #dstdir=/var/www/html.wget
 srcdir=${topdir}/pavuk
-dstdir=/var/www/html
+docroot=/var/www/html
+dstdir=${docroot}/mirror
 
-rsync -av ${srcdir}/ ${dstdir}/
+rsync -av ${srcdir}/* ${dstdir}/
 
 #find ${dstdir} -name '*.html' | while read file; do
 #	file ${file} | grep gzip > /dev/null
@@ -18,7 +19,7 @@ rsync -av ${srcdir}/ ${dstdir}/
 # 	gunzip ${file}.gz
 #done
 
-cat <<END > ${dstdir}/index.html
+cat <<END > ${docroot}/index.html
 <html>
 <head>
 <title>mirroring sites</title>
@@ -32,12 +33,12 @@ ls ${dstdir} | while read line; do
 	if [ $? = 0 ]; then
 		continue
 	fi
-	cat >> ${dstdir}/index.html <<END
-    <li><a href="${line}">${line}</a></li>
+	cat >> ${docroot}/index.html <<END
+    <li><a href="mirror/${line}">${line}</a></li>
 END
 done
 
-cat <<END >> ${dstdir}/index.html
+cat <<END >> ${docroot}/index.html
   </ul>
 </body>
 </html>
