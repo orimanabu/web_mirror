@@ -10,7 +10,8 @@ if [[ $rc -eq 0 ]]; then
         exit 1
 fi
 
-topdir=`pwd`
+#topdir=`pwd`
+topdir=`dirname $0 | sed -e 's,\(.*\)/[^/]*,\1,'`
 logdir=${topdir}/logs
 date=`date '+%Y%m%d-%H%M'`
 
