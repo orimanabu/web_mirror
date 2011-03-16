@@ -2,8 +2,6 @@
 
 topdir=`pwd`
 builddir=${topdir}/build
-dstdir=${topdir}/tepco_mirror
-logdir=${topdir}/logs
 prefix=/usr/local
 
 mkdir -p ${builddir}
