@@ -2,7 +2,7 @@
 
 export TZ=Japan
 
-if [ x"$#" != x"2" ]; then
+if [ "$#" -lt "2" ]; then
 	echo "$0 URL level"
 	exit 1
 fi
