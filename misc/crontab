@@ -1,0 +1,1 @@
+0 */2 * * * /home/ori/tepco/bin/mirror.sh > /home/ori/tepco/log 2>&1
