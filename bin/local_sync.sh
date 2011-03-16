@@ -21,7 +21,7 @@ rsync -av ${srcdir}/ ${dstdir}/
 cat <<END > ${dstdir}/index.html
 <html>
 <head>
-<title>mirror sites</title>
+<title>mirroring sites</title>
 </head>
 <body>
   <ul>
