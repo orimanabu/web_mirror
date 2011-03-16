@@ -2,6 +2,14 @@
 
 export TZ=Japan
 
+ps auxww | grep 'pavuk.sh' | grep -v grep
+rc=$?
+
+if [[ $rc -eq 0 ]]; then
+        echo "Stopped as another pavuk.sh is working."
+        exit 1
+fi
+
 topdir=`pwd`
 logdir=${topdir}/logs
 date=`date '+%Y%m%d-%H%M'`
