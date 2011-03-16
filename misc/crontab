@@ -1,1 +1,1 @@
-0 */2 * * * /home/ori/tepco/bin/mirror.sh > /home/ori/tepco/log 2>&1
+0 */2 * * * /home/ori/web_mirror/bin/mirror.sh /home/ori/web_mirror/mirror.conf > /tmp/mirror.log 2>&1
