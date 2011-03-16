@@ -10,8 +10,7 @@ if [[ $rc -eq 0 ]]; then
         exit 1
 fi
 
-#topdir=`pwd`
-topdir=`dirname $0 | sed -e 's,\(.*\)/[^/]*,\1,'`
+topdir=`pwd`
 logdir=${topdir}/logs
 date=`date '+%Y%m%d-%H%M'`
 conf=${topdir}/mirror.conf
@@ -25,6 +24,7 @@ if [ x"$#" != x"0" ]; then
 	fi
 fi
 
-(cd ${topdir} && ./bin/remote_sync.sh ${conf} >> ${logdir}/log.pavuk.${date} 2>&1)
-(cd ${topdir} && ./bin/local_sync.sh > ${logdir}/log.local.${date} 2>&1)
-(cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.local.${date} 2>&1)
+${topdir}/bin/parse_conf.pl ${conf} | while read line; do
+	echo line=$line
+	(cd ${topdir} && ./bin/pavuk.sh ${line} >> ${logdir}/log.pavuk.${date} 2>&1)
+done
