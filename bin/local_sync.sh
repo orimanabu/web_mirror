@@ -28,13 +28,16 @@ cat <<END > ${docroot}/index.html
   <ul>
 END
 
-ls ${dstdir} | while read line; do
-	echo ${line} | grep index.html > /dev/null 2>&1
-	if [ $? = 0 ]; then
-		continue
-	fi
+#ls ${dstdir} | while read line; do
+#	echo ${line} | grep index.html > /dev/null 2>&1
+#	if [ $? = 0 ]; then
+#		continue
+#	fi
+${topdir}/bin/parse_conf.pl ${topdir}/mirror.conf | while read line; do
+	url=`echo ${line} | cut -d' ' -f1`
+	path=`echo ${line} | cut -d' ' -f3`
 	cat >> ${docroot}/index.html <<END
-    <li><a href="mirror/${line}">${line}</a></li>
+    <li><a href="mirror/${path}">${url}</a></li>
 END
 done
 

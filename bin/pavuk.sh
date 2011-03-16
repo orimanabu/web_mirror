@@ -2,11 +2,12 @@
 
 export TZ=Japan
 
-if [ x"$#" != x"1" ]; then
-	echo "$0 URL"
+if [ x"$#" != x"2" ]; then
+	echo "$0 URL level"
 	exit 1
 fi
 URL=$1; shift
+level=$1; shift
 
 pavuk=/usr/local/bin/pavuk
 topdir=`pwd`
@@ -17,4 +18,4 @@ dstdir=${topdir}/pavuk
 mkdir -p ${dstdir}
 mkdir -p ${logdir}
 
-time ${pavuk} -noCGI -limit_inlines -cdir ${dstdir} -index_name index.html -base_level 1 -noRobots -preserve_time -lmax 1 -dont_leave_site -read_css -mode sync ${URL}
+time ${pavuk} -store_info -noCGI -limit_inlines -cdir ${dstdir} -index_name index.html -base_level 1 -noRobots -preserve_time -lmax ${level} -dont_leave_site -read_css -mode sync ${URL}
