@@ -1,12 +1,13 @@
 #!/bin/sh
 
 export TZ=Japan
+fetcher=wget
 
-ps auxww | grep 'pavuk.sh' | grep -v grep
+ps auxww | grep ${fetcher}.sh | grep -v grep
 rc=$?
 
 if [[ $rc -eq 0 ]]; then
-        echo "Stopped as another pavuk.sh is working."
+        echo "Stopped as another ${fetcher}.sh is working."
         exit 1
 fi
 
