@@ -13,7 +13,12 @@ while (<FILE>) {
 	$_host =~ m|^([^:]+)(:(\d+))?|;
 	my ($host, $port) = ($1, $3);
 	$port = 80 unless $port;
-	my $path = $host . "_" . $port . "/" . $rest;
+
+	# for pavuk
+#	my $path = $host . "_" . $port . "/" . $rest;
+	# for wget
+	my $path = $host . "/" . $rest;
+
 #	print "proto=$proto, host=$host, port=$port, rest=$rest\n";
 	print "$url $level $path\n";
 }
