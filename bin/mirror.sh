@@ -26,6 +26,17 @@ if [ x"$#" != x"0" ]; then
 	fi
 fi
 
+echo "===> mirror.sh"
+date
+echo "conf: ${conf}"
+${topdir}/bin/parse_conf.pl ${conf} | while read line; do
+	echo "url: ${line}"
+done
+echo "topdir: ${topdir}"
+echo "logdir: ${logdir}"
+
 (cd ${topdir} && ./bin/remote_sync.sh ${conf} > ${logdir}/log.remote_sync.${date} 2>&1)
 (cd ${topdir} && ./bin/local_sync.sh > ${logdir}/log.local_sync.${date} 2>&1)
 (cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.create_index.${date} 2>&1)
+
+date
