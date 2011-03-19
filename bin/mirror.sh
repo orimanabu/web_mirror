@@ -37,6 +37,9 @@ echo "logdir: ${logdir}"
 
 (cd ${topdir} && ./bin/remote_sync.sh ${conf} > ${logdir}/log.remote_sync.${date} 2>&1)
 (cd ${topdir} && ./bin/local_sync.sh > ${logdir}/log.local_sync.${date} 2>&1)
-(cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.create_index.${date} 2>&1)
+
+###### Local modification
+/usr/bin/chcon -t httpd_sys_content_t /var/www/html/mirror -R
+################(cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.create_index.${date} 2>&1)
 
 date
