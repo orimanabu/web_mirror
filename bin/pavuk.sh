@@ -18,4 +18,17 @@ dstdir=${topdir}/pavuk
 mkdir -p ${dstdir}
 mkdir -p ${logdir}
 
-time ${pavuk} -store_info -noCGI -limit_inlines -cdir ${dstdir} -index_name index.html -base_level 1 -noRobots -preserve_time -lmax ${level} -dont_leave_site -read_css -mode sync ${URL}
+time ${pavuk} \
+-store_info \
+-noCGI \
+-limit_inlines \
+-cdir ${dstdir} \
+-index_name index.html \
+-base_level 1 \
+-noRobots \
+-preserve_time \
+-lmax ${level} \
+-dont_leave_site \
+-read_css \
+-mode sync \
+${URL}
