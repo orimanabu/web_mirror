@@ -19,11 +19,6 @@ cat <<END > ${docroot}/index.html
   <ul>
 END
 
-#ls ${dstdir} | while read line; do
-#	echo ${line} | grep index.html > /dev/null 2>&1
-#	if [ $? = 0 ]; then
-#		continue
-#	fi
 ${topdir}/bin/parse_conf.pl ${conf} | while read line; do
 	url=`echo ${line} | cut -d' ' -f1`
 	path=`echo ${line} | cut -d' ' -f3`
