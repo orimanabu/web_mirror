@@ -1,0 +1,46 @@
+Web mirroring kit
+
+* Tested environments:
+** RHEL5.5
+** MacOSX 10.6.6
+
+* How to get
+** Latest version is maintained on github.
+  https://github.com/orimanabu/web_mirror
+
+* How to install
+$ cd web_mirror
+$ sudo ./bin/build.sh
+$ sudo rm -rf ./build
+
+* Files
+** Downloads/		Tarballs of fetcher tools
+  pavuk-0.9.35.tar.gz
+  wget-1.12.tar.bz2
+** bin/			Main scripts
+  buil.sh		Compile and install script for fetcher tools
+  clean.sh		Clean logs and fetched web contents
+  parse_conf.pl		Parse mirror.conf
+  local_sync.sh		Copy fetched web contents to Document Root using rsync
+  remote_sync.sh	Fetch web contents from URLs listed in mirror.conf
+  create_index.sh	Create index.html from mirror.conf
+  mirror.sh		Main script for web mirroring
+  pavuk.sh		Wrapper script for pavuk
+  wget.sh		Wrapper script for wget
+  subr.sh		Subroutines
+** env.sh		Shell variables
+** mirror.conf		List URLs here
+** logs/		logs
+** pavuk/		Pavuk.sh saves fetched contents here
+** wget/		Wget.sh saves fetched contents here
+
+* Format of mirror.conf
+URL <tab> level
+URL: URL to mirror
+level: The number of links to fetch
+
+* How to use
+1. get web_mirror kit into /somewhere/web_mirror.
+2. edit env.sh and mirror.conf.
+3. execute mirror.sh.
+  $ /somewhere/web_mirror/bin/mirror.sh /somewhere/web_mirror/mirror.conf
