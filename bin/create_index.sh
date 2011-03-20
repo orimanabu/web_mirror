@@ -10,7 +10,8 @@ subr=`dirname $0`/subr.sh
 . ${subr}
 . ${topdir}/env.sh
 
-docroot=/var/www/html
+fetcher=${site_fetcher:=wget}
+docroot=${site_docroot:=/var/www/html}
 dstdir=${docroot}/mirror
 
 cat <<END > ${docroot}/index.html
