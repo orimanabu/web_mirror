@@ -1,7 +1,13 @@
 #!/bin/sh
 
 export TZ=Japan
-fetcher=wget
+subr=`dirname $0`/subr.sh
+. ${subr}
+. ${topdir}/env.sh
+
+date=`date '+%Y%m%d-%H%M'`
+conf=${topdir}/mirror.conf
+fetcher=${site_fetcher:=${site_wget}}
 
 ps auxww | grep ${fetcher}.sh | grep -v grep
 rc=$?
@@ -10,11 +16,6 @@ if [[ $rc -eq 0 ]]; then
         echo "Stopped as another ${fetcher}.sh is working."
         exit 1
 fi
-
-topdir=`pwd`
-logdir=${topdir}/logs
-date=`date '+%Y%m%d-%H%M'`
-conf=${topdir}/mirror.conf
 
 if [ x"$#" != x"0" ]; then
 	if [ -f $1 ]; then
