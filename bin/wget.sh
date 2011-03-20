@@ -18,4 +18,13 @@ dstdir=${topdir}/wget
 mkdir -p ${dstdir}/mirror
 mkdir -p ${logdir}
 
-time ${wget} --directory-prefix=${dstdir}/mirror --recursive --page-requisites --convert-links --server-response --backup-converted --timestamping --level ${level} ${URL}
+time ${wget} \
+--directory-prefix=${dstdir}/mirror \
+--recursive \
+--page-requisites \
+--convert-links \
+--server-response \
+--backup-converted \
+--timestamping \
+--level=${level} \
+${URL}
