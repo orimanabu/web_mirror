@@ -6,7 +6,7 @@ Web mirroring kit
 
 * How to get
 ** Latest version is maintained on github.
-  https://github.com/orimanabu/web_mirror
+  $ git clone http://github.com/orimanabu/web_mirror
 
 * How to install
 $ cd web_mirror
