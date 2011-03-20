@@ -16,14 +16,14 @@ fi
 URL=$1; shift
 level=$1; shift
 
-mkdir -p ${dstdir}
+mkdir -p ${dstdir}/mirror
 mkdir -p ${logdir}
 
 time ${pavuk} \
 -store_info \
 -noCGI \
 -limit_inlines \
--cdir ${dstdir} \
+-cdir ${dstdir}/mirror \
 -index_name index.html \
 -base_level 1 \
 -noRobots \
