@@ -6,7 +6,10 @@ if [ x"$#" != x1 ]; then
 fi
 conf=$1; shift
 
-topdir=`pwd`
+subr=`dirname $0`/subr.sh
+. ${subr}
+. ${topdir}/env.sh
+
 docroot=/var/www/html
 dstdir=${docroot}/mirror
 

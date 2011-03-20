@@ -1,6 +1,9 @@
 #!/bin/sh
 
-topdir=`pwd`
+subr=`dirname $0`/subr.sh
+. ${subr}
+. ${topdir}/env.sh
+
 builddir=${topdir}/build
 prefix=/usr/local
 

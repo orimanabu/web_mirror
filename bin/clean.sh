@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rm -rf build tepco_mirror/* logs/*
+rm -rf build pavuk/* wget/* logs/*
