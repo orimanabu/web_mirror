@@ -4,7 +4,7 @@ subr=`dirname $0`/subr.sh
 . ${subr}
 . ${topdir}/env.sh
 
-fetcher=${site_fetcher:=${site_wget}}
+fetcher=${site_fetcher:=wget}
 
 srcdir=${topdir}/${fetcher}
 docroot=${site_docroot:=/var/www/html}

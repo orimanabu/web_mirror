@@ -7,7 +7,7 @@ subr=`dirname $0`/subr.sh
 
 date=`date '+%Y%m%d-%H%M'`
 conf=${topdir}/mirror.conf
-fetcher=${site_fetcher:=${site_wget}}
+fetcher=${site_fetcher:=wget}
 
 ps auxww | grep ${fetcher}.sh | grep -v grep
 rc=$?

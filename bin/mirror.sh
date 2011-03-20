@@ -6,7 +6,8 @@ subr=`dirname $0`/subr.sh
 . ${topdir}/env.sh
 date=`date '+%Y%m%d-%H%M'`
 conf=${topdir}/mirror.conf
-fetcher=${site_fetcher:=${site_wget}}
+fetcher=${site_fetcher:=wget}
+docroot=${site_docroot:=/var/www/html}
 
 ps auxww | grep ${fetcher}.sh | grep -v grep
 rc=$?
@@ -33,6 +34,7 @@ ${topdir}/bin/parse_conf.pl ${conf} | while read line; do
 done
 echo "topdir: ${topdir}"
 echo "logdir: ${logdir}"
+echo "docroot: ${docroot}"
 echo "fetcher: ${fetcher}"
 
 (cd ${topdir} && ./bin/remote_sync.sh ${conf} > ${logdir}/log.remote_sync.${date} 2>&1)

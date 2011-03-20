@@ -1,7 +1,7 @@
-site_docroot=/var/www/html
+site_docroot=${HOME}/Sites/web_mirror
 
 site_wget=/opt/local/bin/wget
 site_pavuk=/opt/local/bin/pavuk
 
-#site_fetcher=${site_pavuk}
-site_fetcher=${site_wget}
+#site_fetcher=pavuk
+site_fetcher=wget
