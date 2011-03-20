@@ -1,10 +1,13 @@
 #!/bin/sh
 
-topdir=`pwd`
-fetcher=pavuk
-fetcher=wget
+subr=`dirname $0`/subr.sh
+. ${subr}
+. ${topdir}/env.sh
+
+fetcher=${site_fetcher:=${site_wget}}
+
 srcdir=${topdir}/${fetcher}
-docroot=/var/www/html
+docroot=${site_docroot:=/var/www/html}
 
 # for pavuk
 dstdir=${docroot}/mirror
