@@ -1,3 +1,9 @@
+# Configuration file for shell variables
+#  - site_docroot
+#  - site_wget
+#  - site_pavuk
+#  - site_fetcher
+
 # site_docroot: Apache Document Root (default: /var/www/html)
 # site_docroot=${HOME}/Sites/web_mirror
 
