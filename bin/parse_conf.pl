@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Getopt::Long;
+use URI;
 
 my $fetcher = "wget";
 my $result = GetOptions("fetcher=s" => \$fetcher);
@@ -13,12 +14,9 @@ while (<FILE>) {
 	chomp;
 	next if (/^#/);
 	my ($url, $level) = split;
-	$url =~ m|^([^:]+)://([^/]+)/(.*)|;
-	my ($proto, $_host, $rest) = ($1, $2, $3);
-	$_host =~ m|^([^:]+)(:(\d+))?|;
-	my ($host, $port) = ($1, $3);
-	$port = 80 unless $port;
-
+	my $uri = URI->new($url);
+	my ($proto, $host, $port, $rest) = ($uri->scheme, $uri->host, $uri->port, $uri->path);
+	$rest =~ s|^/||;
 	my $path;
 	if ($fetcher eq "pavuk") {
 		# for pavuk
@@ -28,6 +26,6 @@ while (<FILE>) {
 		$path = $host . "/" . $rest;
 	}
 
-#	print "proto=$proto, host=$host, port=$port, rest=$rest\n";
+#{	print "proto=$proto, host=$host, port=$port, rest=$rest, path=$path\n";
 	print "$url $level $path\n";
 }
