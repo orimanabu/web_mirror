@@ -7,7 +7,7 @@ use Parse::AccessLogEntry;
 use DateTime::Format::HTTP;
 use Text::CSV_XS;
 
-my $csv = Text::CSV_XS->new;
+my $csv = Text::CSV_XS->new({binary => 1, always_quote => 1});
 my $parser = Parse::AccessLogEntry->new;
 my %hash;
 
