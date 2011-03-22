@@ -26,7 +26,7 @@ if [ x"$#" != x"0" ]; then
 	fi
 fi
 
-${topdir}/bin/parse_conf.pl ${conf} | while read line; do
+${topdir}/bin/parse_conf.pl --fetcher=${fetcher} ${conf} | while read line; do
 	echo line=$line >> ${logdir}/log.${fetcher}.${date}
 	(cd ${topdir} && ./bin/${fetcher}.sh ${line} >> ${logdir}/log.${fetcher}.${date} 2>&1)
 done

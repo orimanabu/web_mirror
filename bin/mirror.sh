@@ -29,7 +29,7 @@ fi
 echo "===> mirror.sh"
 date
 echo "conf: ${conf}"
-${topdir}/bin/parse_conf.pl ${conf} | while read line; do
+${topdir}/bin/parse_conf.pl --fetcher=${fetcher} ${conf} | while read line; do
 	echo "url: ${line}"
 done
 echo "topdir: ${topdir}"
