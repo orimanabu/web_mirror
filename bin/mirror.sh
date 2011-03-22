@@ -46,6 +46,6 @@ if [ $? = 0 ]; then
 	${chcon} -t httpd_sys_content_t ${docroot}/mirror -R
 fi
 
-#(cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.create_index.${date} 2>&1)
+(cd ${topdir} && ./bin/create_index.sh ${conf} > ${logdir}/log.create_index.${date} 2>&1)
 
 date
