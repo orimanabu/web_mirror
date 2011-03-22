@@ -23,3 +23,8 @@ echo "===> wget"
 (cd ${builddir} && tar jxvf ${topdir}/Downloads/wget-1.12.tar.bz2)
 (cd ${builddir}/wget-1.12 && ./configure --prefix=${prefix})
 (cd ${builddir}/wget-1.12 && make install)
+
+echo "===> Parse-AccessLogEntry"
+(cd ${builddir} && tar zxvf ${topdir}/Downloads/Parse-AccessLogEntry-0.06.tar.gz)
+(cd ${builddir}/Parse-AccessLogEntry-0.06 && perl Makefile.PL)
+(cd ${builddir}/Parse-AccessLogEntry-0.06 && make install)
