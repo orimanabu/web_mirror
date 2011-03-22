@@ -28,3 +28,8 @@ echo "===> Parse-AccessLogEntry"
 (cd ${builddir} && tar zxvf ${topdir}/Downloads/Parse-AccessLogEntry-0.06.tar.gz)
 (cd ${builddir}/Parse-AccessLogEntry-0.06 && perl Makefile.PL)
 (cd ${builddir}/Parse-AccessLogEntry-0.06 && make install)
+
+echo "===> Text-CSV_XS"
+(cd ${builddir} && tar zxvf ${topdir}/Downloads/Text-CSV_XS-0.80.tgz)
+(cd ${builddir}/Text-CSV_XS-0.80 && perl Makefile.PL)
+(cd ${builddir}/Text-CSV_XS-0.80 && make install)
