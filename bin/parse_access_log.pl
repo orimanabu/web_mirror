@@ -3,6 +3,8 @@
 use warnings;
 use strict;
 
+use Getopt::Long;
+use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
 use Parse::AccessLogEntry;
 use DateTime::Format::HTTP;
 use Text::CSV_XS;
@@ -11,17 +13,39 @@ my $csv = Text::CSV_XS->new({binary => 1, always_quote => 1});
 my $parser = Parse::AccessLogEntry->new;
 my %hash;
 
-while (<>) {
-	my $ref = $parser->parse($_);
-	my $datetime_str_apache = join " ", $ref->{date}, $ref->{time}, $ref->{diffgmt};
-	my $dt = DateTime::Format::HTTP->parse_datetime($datetime_str_apache);
-	my $datetime_str_GMT = join " ", $dt->ymd, $dt->hms;
-	$dt->set_time_zone("Japan");
-	my $datetime_str_JST = join " ", $dt->ymd, $dt->hms;
+sub open_log {
+	my $path = shift;
+	my $handle;
+	if ($path =~ /\.gz/) {
+		$handle = new IO::Uncompress::Gunzip $path or die "gunzip failed: $GunzipError\n";
+	} else {
+		open FILE, $path or die "open $path failed\n";
+		$handle = *FILE;
+	}
+	return $handle;
+}
 
-	my $path = $ref->{file};
-	$hash{$dt->ymd}->{$path}->{count} += 1;
-	push @{$hash{$dt->ymd}->{$path}->{info}}, {host => $ref->{host}, dt_gmt => $datetime_str_GMT, dt_jst => $datetime_str_JST};
+sub parse_log {
+	my $logpath = shift;
+	my $handle = open_log($logpath);
+	while (<$handle>) {
+		my $ref = $parser->parse($_);
+		my $datetime_str_apache = join " ", $ref->{date}, $ref->{time}, $ref->{diffgmt};
+		my $dt = DateTime::Format::HTTP->parse_datetime($datetime_str_apache);
+		my $datetime_str_GMT = join " ", $dt->ymd, $dt->hms;
+		$dt->set_time_zone("Japan");
+		my $datetime_str_JST = join " ", $dt->ymd, $dt->hms;
+
+		my $path = $ref->{file};
+		$hash{$dt->ymd}->{$path}->{count} += 1;
+		push @{$hash{$dt->ymd}->{$path}->{info}}, {host => $ref->{host}, dt_gmt => $datetime_str_GMT, dt_jst => $datetime_str_JST};
+	}
+}
+
+my @logs = @ARGV;
+for my $logfile (@ARGV) {
+	print "processing $logfile ...\n";
+	parse_log($logfile);
 }
 
 for my $date (sort keys %hash) {
