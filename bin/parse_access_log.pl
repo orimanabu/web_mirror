@@ -11,6 +11,7 @@ use Text::CSV_XS;
 
 my $csv = Text::CSV_XS->new({binary => 1, always_quote => 1});
 my $parser = Parse::AccessLogEntry->new;
+my $filter_regexp = "^.*\$";
 my %hash;
 
 sub open_log {
@@ -37,10 +38,13 @@ sub parse_log {
 		my $datetime_str_JST = join " ", $dt->ymd, $dt->hms;
 
 		my $path = $ref->{file};
+		next unless ($path =~ /$filter_regexp/);
 		$hash{$dt->ymd}->{$path}->{count} += 1;
 		push @{$hash{$dt->ymd}->{$path}->{info}}, {host => $ref->{host}, dt_gmt => $datetime_str_GMT, dt_jst => $datetime_str_JST};
 	}
 }
+
+GetOptions("filter=s" => \$filter_regexp);
 
 my @logs = @ARGV;
 for my $logfile (@ARGV) {
