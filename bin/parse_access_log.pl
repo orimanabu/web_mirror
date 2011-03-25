@@ -12,7 +12,7 @@ use Text::CSV_XS;
 my $csv = Text::CSV_XS->new({binary => 1, always_quote => 1});
 my $parser = Parse::AccessLogEntry->new;
 my $filter_regexp = "^.*\$";
-my $timezone = "Japan";
+my $timezone = "Asia/Tokyo";
 my $debug = 0;
 my $help;
 my %hash;
