@@ -14,7 +14,16 @@ my $parser = Parse::AccessLogEntry->new;
 my $filter_regexp = "^.*\$";
 my $timezone = "Japan";
 my $debug = 0;
+my $help;
 my %hash;
+
+sub usage {
+	print "parse_access_log.pl [--filter=REGEXP] [--timezone=TIMEZONE] [--debug] [--help] ACCESS_LOGS\n";
+	print " --filter=REGEXP: regular expressions for paths to include\n";
+	print " --timezone=TIMEZONE: default is 'Asia/Tokyo'\n";
+	print " ACCESS_LOGS: You can pass multiple access_logs, including gzipped ones.\n";
+	exit;
+}
 
 sub open_log {
 	my $path = shift;
@@ -49,10 +58,12 @@ sub parse_log {
 GetOptions(
 	"filter=s" => \$filter_regexp,
 	"timezone=s" => \$timezone,
+	"help" => \$help,
 	"debug" => \$debug
 );
 
-my @logs = @ARGV;
+usage if ($help);
+
 for my $logfile (@ARGV) {
 	print "processing $logfile ...\n";
 	parse_log($logfile);
