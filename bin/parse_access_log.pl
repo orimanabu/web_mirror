@@ -12,6 +12,7 @@ use Text::CSV_XS;
 my $csv = Text::CSV_XS->new({binary => 1, always_quote => 1});
 my $parser = Parse::AccessLogEntry->new;
 my $filter_regexp = "^.*\$";
+my $timezone = "Japan";
 my $debug = 0;
 my %hash;
 
@@ -34,19 +35,20 @@ sub parse_log {
 		my $ref = $parser->parse($_);
 		my $datetime_str_apache = join " ", $ref->{date}, $ref->{time}, $ref->{diffgmt};
 		my $dt = DateTime::Format::HTTP->parse_datetime($datetime_str_apache);
-		my $datetime_str_GMT = join " ", $dt->ymd, $dt->hms;
-		$dt->set_time_zone("Japan");
-		my $datetime_str_JST = join " ", $dt->ymd, $dt->hms;
+		my $datetime_str_log = join " ", $dt->ymd, $dt->hms;
+		$dt->set_time_zone($timezone);
+		my $datetime_str_tz = join " ", $dt->ymd, $dt->hms;
 
 		my $path = $ref->{file};
 		next unless ($path =~ /$filter_regexp/);
 		$hash{$dt->ymd}->{$path}->{count} += 1;
-		push @{$hash{$dt->ymd}->{$path}->{info}}, {host => $ref->{host}, dt_gmt => $datetime_str_GMT, dt_jst => $datetime_str_JST};
+		push @{$hash{$dt->ymd}->{$path}->{info}}, {host => $ref->{host}, dt_log => $datetime_str_log, dt_tz => $datetime_str_tz};
 	}
 }
 
 GetOptions(
 	"filter=s" => \$filter_regexp,
+	"timezone=s" => \$timezone,
 	"debug" => \$debug
 );
 
@@ -65,7 +67,7 @@ for my $date (sort keys %hash) {
 			my $i = 0;
 			for my $info (@$array) {
 				printf "debug:     (%04d)", $i;
-				print "\t", $info->{dt_gmt}, "\t", $info->{dt_jst}, "\n";
+				print "\t", $info->{dt_log}, "\t", $info->{dt_tz}, "\n";
 				$i++;
 			}
 		}
