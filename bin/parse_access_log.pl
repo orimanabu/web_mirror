@@ -12,6 +12,7 @@ use Text::CSV_XS;
 my $csv = Text::CSV_XS->new({binary => 1, always_quote => 1});
 my $parser = Parse::AccessLogEntry->new;
 my $filter_regexp = "^.*\$";
+my $debug = 0;
 my %hash;
 
 sub open_log {
@@ -44,7 +45,10 @@ sub parse_log {
 	}
 }
 
-GetOptions("filter=s" => \$filter_regexp);
+GetOptions(
+	"filter=s" => \$filter_regexp,
+	"debug" => \$debug
+);
 
 my @logs = @ARGV;
 for my $logfile (@ARGV) {
@@ -54,15 +58,17 @@ for my $logfile (@ARGV) {
 
 for my $date (sort keys %hash) {
 	for my $path (sort keys %{$hash{$date}}) {
-#		print "$date\t$path\n";
-#		print "  count: ", $hash{$date}->{$path}->{count}, "\n";
-#		my $array = $hash{$date}->{$path}->{info};
-#		my $i = 0;
-#		for my $info (@$array) {
-#			printf "    (%04d)", $i;
-#			print "\t", $info->{dt_gmt}, "\t", $info->{dt_jst}, "\n";
-#			$i++;
-#		}
+		if ($debug) {
+			print "debug: $date\t$path\n";
+			print "debug:   count: ", $hash{$date}->{$path}->{count}, "\n";
+			my $array = $hash{$date}->{$path}->{info};
+			my $i = 0;
+			for my $info (@$array) {
+				printf "debug:     (%04d)", $i;
+				print "\t", $info->{dt_gmt}, "\t", $info->{dt_jst}, "\n";
+				$i++;
+			}
+		}
 
 		my @csvsrc = ($date, $path, $hash{$date}->{$path}->{count});
 		$csv->combine(@csvsrc);
